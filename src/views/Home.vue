@@ -1,5 +1,5 @@
 <template>
-  <house-list :houses="houses" :page="page" />
+  <house-list :houses="houses" @house-list:load-page="loadPage" :page="page" />
 </template>
 
 <script>
@@ -13,14 +13,24 @@ export default {
     return {
       houses: [],
       page: 1,
+      city: 'london',
     };
   },
   async created() {
-    const data = await MOCK_API.getHouses('london', 1);
-    this.houses = data.houses;
+    this.loadPage(this.page);
   },
   components: {
     'house-list': HouseList,
+  },
+  methods: {
+    async loadPage(page) {
+      if (!this.city) {
+        return;
+      }
+      const data = await MOCK_API.getHouses(this.city, page);
+      this.page = page;
+      this.houses = [...this.houses, ...data.houses];
+    },
   },
 };
 </script>

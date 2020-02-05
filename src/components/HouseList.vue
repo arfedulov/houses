@@ -1,11 +1,14 @@
 <template>
-  <ul>
-    <card
-      v-for="house of houses"
-      :key="house.title"
-      :title="house.title"
-    />
-  </ul>
+  <div>
+    <ul>
+      <card
+        v-for="house of houses"
+        :key="house.title"
+        :title="house.title"
+      />
+    </ul>
+    <button @click="loadNextPage">show more</button>
+  </div>
 </template>
 
 <script>
