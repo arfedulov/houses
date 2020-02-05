@@ -1,5 +1,13 @@
 <template>
-  <house-list :houses="houses" @house-list:load-page="loadPage" :page="page" />
+  <div>
+    <input type="text" v-model="city" />
+    <button @click="search">search</button>
+    <house-list
+      :houses="houses"
+      @house-list:load-page="loadPage"
+      :page="page"
+    />
+  </div>
 </template>
 
 <script>
@@ -13,7 +21,7 @@ export default {
     return {
       houses: [],
       page: 1,
-      city: 'london',
+      city: '',
     };
   },
   async created() {
@@ -30,6 +38,14 @@ export default {
       const data = await MOCK_API.getHouses(this.city, page);
       this.page = page;
       this.houses = [...this.houses, ...data.houses];
+    },
+    search() {
+      this.clearData();
+      this.loadPage(this.page);
+    },
+    clearData() {
+      this.page = 1;
+      this.houses = [];
     },
   },
 };
