@@ -31,12 +31,19 @@ export default {
       throw new Error('Missing required argument `city`');
     }
     try {
-      const response = await fetch(NESTORIA_URL + buildQuery({ city, page, ...defaultParams }));
-      const code = response.application_response_code;
+      const response = await fetch(
+        NESTORIA_URL + buildQuery({ place_name: city, page, ...defaultParams }),
+      );
+      const data = await response.json();
+      const code = data && data.response.application_response_code;
       if (code >= 100 && code < 200) {
-        return { houses: response.listings, page };
+        return { houses: data.response.listings, page };
       }
-      console.error(`Server respond with ${code} application responce code`);
+      if (code >= 900 && code < 1000) {
+        console.error(`Bad request: ${code}`);
+      } else {
+        console.error(`Server respond with ${code} application responce code`);
+      }
       return { houses: [], page };
     } catch (err) {
       console.error(err);

@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <house-list :houses="houses" :page="page" />
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HouseList from '@/components/HouseList.vue';
+import API from '@/services/api';
 
 export default {
   name: 'home',
+  data() {
+    return {
+      houses: [
+        { title: 'aaa' },
+        { title: 'bbb' },
+        { title: 'ccc' },
+      ],
+      page: 1,
+    };
+  },
+  async created() {
+    const data = await API.getHouses('london');
+    this.houses = data.houses;
+  },
   components: {
-    HelloWorld,
+    'house-list': HouseList,
   },
 };
 </script>
