@@ -1,13 +1,14 @@
 <template>
   <div>
-    <ul>
+    <div>
       <card
+        class="card"
         v-for="house of houses"
         :key="house.title"
         :title="house.title"
       />
-    </ul>
-    <button @click="loadNextPage">show more</button>
+    </div>
+    <b-button block class="show-more-btn" @click="loadNextPage">show more</b-button>
   </div>
 </template>
 
@@ -33,3 +34,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.show-more-btn {
+  margin: 10px auto;
+  max-width: 10em;
+}
+.card {
+  margin: 5px;
+}
+</style>

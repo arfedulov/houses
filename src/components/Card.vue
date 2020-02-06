@@ -1,12 +1,14 @@
 <template>
-  <h1>{{title}}</h1>
+  <b-card align="center">
+    {{title}}
+  </b-card>
 </template>
 
 <script>
 export default {
   name: 'card',
   props: {
-    title: String,
+    title: { type: String, required: true },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search @search:submit="search" />
+    <search @search:submit="search" class="search-field" />
     <house-list
       :houses="houses"
       @house-list:load-page="loadPage"
@@ -52,3 +52,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.search-field {
+  max-width: 30em;
+  margin: 10px auto;
+}
+</style>
