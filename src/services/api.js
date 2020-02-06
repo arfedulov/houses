@@ -9,6 +9,7 @@
 //     &page=1
 
 import { buildQuery } from '@/utils/buildQuery';
+import log from '@/logger';
 
 const NESTORIA_URL = 'https://api.nestoria.co.uk/api';
 
@@ -33,13 +34,13 @@ export default {
         return { houses: data.response.listings, page };
       }
       if (code >= 900 && code < 1000) {
-        console.error(`Bad request: ${code}`);
+        log.error(`Bad request: ${code}`);
       } else {
-        console.error(`Server respond with ${code} application responce code`);
+        log.error(`Server respond with ${code} application responce code`);
       }
       return { houses: [], page };
     } catch (err) {
-      console.error(err);
+      log.error(err);
       return { houses: [], page };
     }
   },
