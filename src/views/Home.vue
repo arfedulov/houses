@@ -12,8 +12,8 @@
 <script>
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
-// import API from '@/services/api';
-import MOCK_API from '@/services/mockApi';
+import API from '@/services/api';
+// import MOCK_API from '@/services/mockApi';
 
 export default {
   name: 'home',
@@ -36,7 +36,7 @@ export default {
       if (!this.city) {
         return;
       }
-      const data = await MOCK_API.getHouses(this.city, page);
+      const data = await API.getHouses(this.city, page);
       this.page = page;
       this.houses = [...this.houses, ...data.houses];
     },
