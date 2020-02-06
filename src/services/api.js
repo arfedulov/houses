@@ -8,16 +8,9 @@
 //     &place_name=london
 //     &page=1
 
-const NESTORIA_URL = 'https://api.nestoria.co.uk/api';
+import { buildQuery } from '@/utils/buildQuery';
 
-const buildQuery = (params) => {
-  let q = '?';
-  Object.entries(params).forEach((pair) => {
-    q += `${pair[0]}=${pair[1]}&`;
-  });
-  q = q.slice(0, q.length - 1);
-  return q;
-};
+const NESTORIA_URL = 'https://api.nestoria.co.uk/api';
 
 const defaultParams = {
   encoding: 'json',
