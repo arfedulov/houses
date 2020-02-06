@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- <input type="text" v-model="city" />
-    <button @click="search">search</button> -->
     <search @search:submit="search" />
     <house-list
       :houses="houses"
