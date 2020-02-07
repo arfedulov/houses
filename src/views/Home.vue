@@ -4,6 +4,7 @@
     <house-list
       :houses="houses"
     />
+    <paginator :current-page="page" @paginator:load-page="loadPage" />
   </div>
 </template>
 
@@ -11,14 +12,14 @@
 import { mapActions, mapState, mapMutations } from 'vuex';
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
-// import Paginator from '@/components/Paginator.vue';
+import Paginator from '@/components/Paginator.vue';
 
 export default {
   name: 'home',
   components: {
     HouseList,
     Search,
-    // Paginator,
+    Paginator,
   },
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
       if (!this.city) {
         return;
       }
-      await this.loadHouses(this.city, page);
+      await this.loadHouses({ city: this.city, page });
       this.page = page;
     },
     search(value) {

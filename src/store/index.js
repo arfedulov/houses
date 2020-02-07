@@ -41,7 +41,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async loadHouses(context, city, page) {
+    async loadHouses(context, { city, page }) {
       const houses = await API.getHouses(city, page);
       if (houses) {
         context.commit('loadHouses', dedupeListings(houses));
