@@ -1,10 +1,10 @@
 <template>
   <div>
-    <search @search:submit="search" class="search-field" />
+    <search class="search-field" @search:submit="search" />
     <house-list
       :houses="houses"
-      @house-list:load-page="loadPage"
       :page="page"
+      @house-list:load-page="loadPage"
     />
     <paginator @paginator:load-more="loadNextPage" />
   </div>

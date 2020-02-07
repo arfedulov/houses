@@ -2,10 +2,10 @@
   <div>
     <div>
       <card
-        class="card"
         v-for="house of houses"
         :key="house.title"
         :title="house.title"
+        class="card"
       />
     </div>
   </div>

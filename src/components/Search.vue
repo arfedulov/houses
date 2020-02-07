@@ -1,6 +1,6 @@
 <template>
   <b-input-group prepend="search">
-    <b-form-input type="text" v-model="value" placeholder="city" />
+    <b-form-input v-model="value" type="text" placeholder="city" />
     <b-input-group-append>
       <b-button @click="submit">search</b-button>
     </b-input-group-append>
