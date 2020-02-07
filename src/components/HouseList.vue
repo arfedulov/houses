@@ -24,8 +24,8 @@ export default {
     Card,
   },
   props: {
-    houses: Array,
-    page: Number,
+    houses: { type: Array, default: () => [] },
+    page: { type: Number, default: 1 },
   },
   methods: {
     loadNextPage() {
