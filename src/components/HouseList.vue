@@ -21,7 +21,6 @@ export default {
   },
   props: {
     houses: { type: Array, default: () => [] },
-    page: { type: Number, default: 1 },
   },
 };
 </script>

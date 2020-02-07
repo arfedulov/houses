@@ -3,8 +3,6 @@
     <search class="search-field" @search:submit="search" />
     <house-list
       :houses="houses"
-      :page="page"
-      @house-list:load-page="loadPage"
     />
     <paginator @paginator:load-more="loadNextPage" />
   </div>
