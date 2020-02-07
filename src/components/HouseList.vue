@@ -3,8 +3,8 @@
     <div>
       <card
         class="card"
-        v-for="(house, index) of houses"
-        :key="index"
+        v-for="house of houses"
+        :key="house.title"
         :title="house.title"
       />
     </div>
