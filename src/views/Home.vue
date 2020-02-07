@@ -15,7 +15,6 @@ import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
 import Paginator from '@/components/Paginator.vue';
 import API from '@/services/api';
-// import MOCK_API from '@/services/mockApi';
 
 const dedupeListings = (listings) => {
   const usedTitles = new Set();
