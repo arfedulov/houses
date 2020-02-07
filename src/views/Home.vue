@@ -17,6 +17,19 @@ import Paginator from '@/components/Paginator.vue';
 import API from '@/services/api';
 // import MOCK_API from '@/services/mockApi';
 
+const dedupeListings = (listings) => {
+  const usedTitles = new Set();
+  const deduped = [];
+
+  listings.forEach((house) => {
+    if (!usedTitles.has(house.title)) {
+      deduped.push(house);
+      usedTitles.add(house.title);
+    }
+  });
+  return deduped;
+};
+
 export default {
   name: 'home',
   data() {
@@ -41,7 +54,7 @@ export default {
       }
       const data = await API.getHouses(this.city, page);
       this.page = page;
-      this.houses = [...this.houses, ...data.houses];
+      this.houses = dedupeListings([...this.houses, ...data.houses]);
     },
     loadNextPage() {
       this.loadPage(this.page + 1);

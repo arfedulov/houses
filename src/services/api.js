@@ -19,19 +19,6 @@ const defaultParams = {
   listing_type: 'buy',
 };
 
-const dedupeListings = (listings) => {
-  const usedTitles = new Set();
-  const deduped = [];
-
-  listings.forEach((house) => {
-    if (!usedTitles.has(house.title)) {
-      deduped.push(house);
-      usedTitles.add(house.title);
-    }
-  });
-  return deduped;
-};
-
 export default {
   async getHouses(city, page = 1) {
     if (!city) {
@@ -44,7 +31,7 @@ export default {
       const data = await response.json();
       const code = data && data.response.application_response_code;
       if (code >= 100 && code < 200) {
-        return { houses: dedupeListings(data.response.listings), page };
+        return { houses: data.response.listings, page };
       }
       if (code >= 900 && code < 1000) {
         log.error(`Bad request: ${code}`);
