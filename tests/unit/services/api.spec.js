@@ -1,5 +1,4 @@
 import API from '@/services/api';
-import logger from '@/logger';
 
 jest.mock('@/logger', () => ({ error: jest.fn() }));
 
@@ -22,9 +21,6 @@ describe('API', () => {
       const CITY = 'moscow';
       const result = await API.getHouses(CITY);
 
-      expect(global.fetch).toHaveBeenCalled();
-      expect(logger.error)
-        .toHaveBeenCalledWith('Server respond with undefined application responce code');
       expect(Array.isArray(result.houses)).toBe(true);
       expect(typeof result.page).toBe('number');
     });
