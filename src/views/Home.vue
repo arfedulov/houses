@@ -8,23 +8,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
 // import Paginator from '@/components/Paginator.vue';
-
-const dedupeListings = (listings) => {
-  const usedTitles = new Set();
-  const deduped = [];
-
-  listings.forEach((house) => {
-    if (!usedTitles.has(house.title)) {
-      deduped.push(house);
-      usedTitles.add(house.title);
-    }
-  });
-  return deduped;
-};
 
 export default {
   name: 'home',
@@ -49,13 +36,15 @@ export default {
     ...mapActions([
       'loadHouses',
     ]),
+    ...mapMutations([
+      'clearHouses',
+    ]),
     async loadPage(page) {
       if (!this.city) {
         return;
       }
       await this.loadHouses(this.city, page);
       this.page = page;
-      this.houses = dedupeListings(this.houses);
     },
     search(value) {
       this.clearData();
@@ -64,7 +53,7 @@ export default {
     },
     clearData() {
       this.page = 1;
-      this.houses = [];
+      this.clearHouses();
     },
   },
 };
