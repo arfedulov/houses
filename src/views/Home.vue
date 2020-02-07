@@ -6,12 +6,14 @@
       @house-list:load-page="loadPage"
       :page="page"
     />
+    <paginator @paginator:load-more="loadNextPage" />
   </div>
 </template>
 
 <script>
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
+import Paginator from '@/components/Paginator.vue';
 import API from '@/services/api';
 // import MOCK_API from '@/services/mockApi';
 
@@ -30,6 +32,7 @@ export default {
   components: {
     HouseList,
     Search,
+    Paginator,
   },
   methods: {
     async loadPage(page) {
@@ -39,6 +42,9 @@ export default {
       const data = await API.getHouses(this.city, page);
       this.page = page;
       this.houses = [...this.houses, ...data.houses];
+    },
+    loadNextPage() {
+      this.loadPage(this.page + 1);
     },
     search(value) {
       this.clearData();
