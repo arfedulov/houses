@@ -16,7 +16,7 @@ export default {
     }
     try {
       const response = await fetch(
-        NESTORIA_URL + buildQuery({ place_name: city, page, ...defaultParams }),
+        NESTORIA_URL + buildQuery({ ...defaultParams, place_name: city, page }),
       );
       const data = await response.json();
       const code = data && data.response.application_response_code;
