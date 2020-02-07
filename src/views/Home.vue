@@ -4,15 +4,14 @@
     <house-list
       :houses="houses"
     />
-    <paginator @paginator:load-more="loadNextPage" />
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
-import Paginator from '@/components/Paginator.vue';
-import API from '@/services/api';
+// import Paginator from '@/components/Paginator.vue';
 
 const dedupeListings = (listings) => {
   const usedTitles = new Set();
@@ -29,32 +28,34 @@ const dedupeListings = (listings) => {
 
 export default {
   name: 'home',
+  components: {
+    HouseList,
+    Search,
+    // Paginator,
+  },
   data() {
     return {
-      houses: [],
       page: 1,
       city: '',
     };
   },
+  computed: mapState({
+    houses: state => state.houses,
+  }),
   mounted() {
     this.loadPage(this.page);
   },
-  components: {
-    HouseList,
-    Search,
-    Paginator,
-  },
   methods: {
+    ...mapActions([
+      'loadHouses',
+    ]),
     async loadPage(page) {
       if (!this.city) {
         return;
       }
-      const data = await API.getHouses(this.city, page);
+      await this.loadHouses(this.city, page);
       this.page = page;
-      this.houses = dedupeListings([...this.houses, ...data.houses]);
-    },
-    loadNextPage() {
-      this.loadPage(this.page + 1);
+      this.houses = dedupeListings(this.houses);
     },
     search(value) {
       this.clearData();

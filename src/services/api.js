@@ -21,17 +21,17 @@ export default {
       const data = await response.json();
       const code = data && data.response.application_response_code;
       if (code >= 100 && code < 200) {
-        return { houses: data.response.listings, page };
+        return data.response.listings;
       }
       if (code >= 900 && code < 1000) {
         log.error(`Bad request: ${code}`);
       } else {
         log.error(`Server respond with ${code} application responce code`);
       }
-      return { houses: [], page };
+      return [];
     } catch (err) {
       log.error(err);
-      return { houses: [], page };
+      return [];
     }
   },
 };
