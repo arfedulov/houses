@@ -31,7 +31,12 @@ describe('API', () => {
   });
 
   describe('API respond with success status code', () => {
-    const HOUSES = [1, 2, 3, 4, 5];
+    const HOUSES = [
+      { title: 'aaaaa' },
+      { title: 'bbbb' },
+      { title: 'cccccc' },
+      { title: 'ddddd' },
+    ];
 
     beforeEach(() => {
       const RESPONSE = {
