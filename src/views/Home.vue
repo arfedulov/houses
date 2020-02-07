@@ -38,7 +38,7 @@ export default {
       city: '',
     };
   },
-  async created() {
+  mounted() {
     this.loadPage(this.page);
   },
   components: {
