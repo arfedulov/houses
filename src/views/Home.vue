@@ -4,7 +4,7 @@
     <house-list
       :houses="houses"
     />
-    <paginator :current-page="page" @paginator:load-page="loadPage" />
+    <paginator :current-page="currentPage" @paginator:load-page="loadPage" />
   </div>
 </template>
 
@@ -23,15 +23,17 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      // page: 1,
       city: '',
     };
   },
   computed: mapState({
     houses: state => state.houses,
+    currentPage: state => state.currentPage,
+    totalPages: state => state.totalPages,
   }),
   mounted() {
-    this.loadPage(this.page);
+    this.loadPage(this.currentPage);
   },
   methods: {
     ...mapActions([
@@ -45,15 +47,15 @@ export default {
         return;
       }
       await this.loadHouses({ city: this.city, page });
-      this.page = page;
+      // this.currentPage = page;
     },
     search(value) {
       this.clearData();
       this.city = value;
-      this.loadPage(this.page);
+      this.loadPage(this.currentPage);
     },
     clearData() {
-      this.page = 1;
+      // this.currentPage = 1;
       this.clearHouses();
     },
   },

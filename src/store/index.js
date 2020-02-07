@@ -21,11 +21,18 @@ const dedupeListings = (listings) => {
 export default new Vuex.Store({
   state: {
     houses: [],
+    currentPage: 1,
+    totalPages: 1,
     favoriteHouses: [],
   },
   mutations: {
     loadHouses(state, houses) {
       state.houses = houses;
+    },
+    loadPageData(state, { houses, currentPage, totalPages }) {
+      state.houses = houses;
+      state.currentPage = currentPage;
+      state.totalPages = totalPages;
     },
     clearHouses(state) {
       state.houses = [];
@@ -42,9 +49,13 @@ export default new Vuex.Store({
   },
   actions: {
     async loadHouses(context, { city, page }) {
-      const houses = await API.getHouses(city, page);
-      if (houses) {
-        context.commit('loadHouses', dedupeListings(houses));
+      const pageData = await API.getHousesPage(city, page);
+      if (pageData) {
+        context.commit('loadPageData', {
+          houses: dedupeListings(pageData.houses),
+          currentPage: pageData.page,
+          totalPages: pageData.totalPages,
+        });
       }
     },
   },
