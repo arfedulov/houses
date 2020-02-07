@@ -28,8 +28,8 @@ export default {
     this.loadPage(this.page);
   },
   components: {
-    'house-list': HouseList,
-    search: Search,
+    HouseList,
+    Search,
   },
   methods: {
     async loadPage(page) {

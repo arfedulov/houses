@@ -21,7 +21,7 @@ export const EVENTS = {
 export default {
   name: 'house-list',
   components: {
-    card: Card,
+    Card,
   },
   props: {
     houses: Array,
