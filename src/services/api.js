@@ -1,13 +1,3 @@
-// DO NOT REMOVE EXAMPLE
-// https://api.nestoria.co.uk/api
-//     ?encoding=json
-//     &pretty=1
-//     &action=search_listings
-//     &listing_type=buy
-
-//     &place_name=london
-//     &page=1
-
 import { buildQuery } from '@/utils/buildQuery';
 import log from '@/logger';
 
