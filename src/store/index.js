@@ -28,19 +28,40 @@ const addFavoriteProp = (houses) => {
   }, []);
 };
 
+const API_PROPS_TO_APP_MAP = new Map(Object.entries({
+  img_url: 'imageUrl',
+  title: 'title',
+  price: 'price',
+  price_currency: 'currency',
+  bedroom_number: 'bedrooms',
+  keywords: 'keywords',
+}));
+
+const mapPropsFromApi = houses => houses.reduce((acc, house) => {
+  const h = {};
+  Object.keys(house).forEach((key) => {
+    if (API_PROPS_TO_APP_MAP.has(key)) {
+      h[API_PROPS_TO_APP_MAP.get(key)] = house[key];
+    } else {
+      h[key] = house[key];
+    }
+  });
+  acc.push(h);
+  return acc;
+}, []);
+
 export default new Vuex.Store({
   state: {
     houses: [],
     currentPage: 1,
     totalItems: 0,
-    // favoriteHouses: FAVORITE_HOUSES.getHouses(),
   },
   mutations: {
-    loadHouses(state, houses) {
-      state.houses = addFavoriteProp(houses);
-    },
+    // loadHouses(state, houses) {
+    //   state.houses = mapPropsFromApi(addFavoriteProp(houses));
+    // },
     loadPageData(state, { houses, currentPage, totalItems }) {
-      state.houses = houses;
+      state.houses = mapPropsFromApi(addFavoriteProp(houses));
       state.currentPage = currentPage;
       state.totalItems = totalItems;
     },

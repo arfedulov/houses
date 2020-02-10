@@ -22,8 +22,11 @@ export default {
   },
   computed: {
     ...mapState({
-      apartment: state => state.houses.find(house => house.title === this.title),
+      houses: state => state.houses,
     }),
+    apartment() {
+      return this.houses.find(house => house.title === this.title);
+    },
   },
 };
 </script>

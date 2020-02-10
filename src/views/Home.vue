@@ -5,6 +5,7 @@
       :houses="houses"
       @house-list:add-house-to-favorite="addFavoriteHouse"
       @house-list:remove-house-from-favorite="removeFromFavoriteHouse"
+      @house-list:go-to-apartment="goToApartment"
     />
     <paginator
       v-show="totalItems"
@@ -70,6 +71,11 @@ export default {
     },
     clearData() {
       this.clearHouses();
+    },
+    goToApartment(title) {
+      this.$router.push({
+        name: 'apartment', params: { title },
+      });
     },
   },
 };

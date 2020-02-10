@@ -1,6 +1,6 @@
 <template>
   <b-card align="center">
-    {{title}}
+    <h2 @click="goToDetails">{{title}}</h2>
     <button
       @click="toggleFavorite"
     >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</button>
@@ -11,6 +11,7 @@
 export const EVENTS = {
   ADD_TO_FAVORITE: 'card:add-to-favorite',
   REMOVE_FROM_FAVORITE: 'card:remove-from-favorite',
+  GO_TO_DETAILS: 'card:go-to-details',
 };
 
 export default {
@@ -23,6 +24,9 @@ export default {
     toggleFavorite() {
       const event = this.isFavorite ? EVENTS.REMOVE_FROM_FAVORITE : EVENTS.ADD_TO_FAVORITE;
       this.$emit(event, this.title);
+    },
+    goToDetails() {
+      this.$emit(EVENTS.GO_TO_DETAILS, this.title);
     },
   },
 };
