@@ -3,6 +3,7 @@
     :houses="houses"
     @house-list:add-house-to-favorite="addFavoriteHouse"
     @house-list:remove-house-from-favorite="removeFromFavoriteHouse"
+    @house-list:go-to-apartment="goToApartment"
   />
 </template>
 
@@ -25,6 +26,11 @@ export default {
       'addFavoriteHouse',
       'removeFromFavoriteHouse',
     ]),
+    goToApartment(title) {
+      this.$router.push({
+        name: 'apartment', params: { title },
+      });
+    },
   },
 };
 </script>

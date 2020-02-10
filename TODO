@@ -1,10 +1,3 @@
 
-1. Add separate page for apartments. You click on apartment card on go to apartment
-page with more info about it.
-
-2. Add "Favorite" page were you can see apartments that was marked as favorite.
-You should add "Star" button with 'added/not added' state to apartment card for
-this functionality. Use Vuex to store those apartments.
-
 3. Add filters for result. By price (slider), bedrooms (2 inputs), has photo
 flag (switch). Add button search under filters to use it with current city.
