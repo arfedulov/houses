@@ -1,18 +1,79 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <search class="search-field" @search:submit="search" />
+    <house-list
+      :houses="houses"
+      :page="page"
+      @house-list:load-page="loadPage"
+    />
+    <paginator @paginator:load-more="loadNextPage" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import HouseList from '@/components/HouseList.vue';
+import Search from '@/components/Search.vue';
+import Paginator from '@/components/Paginator.vue';
+import API from '@/services/api';
+
+const dedupeListings = (listings) => {
+  const usedTitles = new Set();
+  const deduped = [];
+
+  listings.forEach((house) => {
+    if (!usedTitles.has(house.title)) {
+      deduped.push(house);
+      usedTitles.add(house.title);
+    }
+  });
+  return deduped;
+};
 
 export default {
   name: 'home',
+  data() {
+    return {
+      houses: [],
+      page: 1,
+      city: '',
+    };
+  },
+  mounted() {
+    this.loadPage(this.page);
+  },
   components: {
-    HelloWorld,
+    HouseList,
+    Search,
+    Paginator,
+  },
+  methods: {
+    async loadPage(page) {
+      if (!this.city) {
+        return;
+      }
+      const data = await API.getHouses(this.city, page);
+      this.page = page;
+      this.houses = dedupeListings([...this.houses, ...data.houses]);
+    },
+    loadNextPage() {
+      this.loadPage(this.page + 1);
+    },
+    search(value) {
+      this.clearData();
+      this.city = value;
+      this.loadPage(this.page);
+    },
+    clearData() {
+      this.page = 1;
+      this.houses = [];
+    },
   },
 };
 </script>
+
+<style scoped>
+.search-field {
+  max-width: 30em;
+  margin: 10px auto;
+}
+</style>
