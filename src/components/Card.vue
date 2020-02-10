@@ -1,9 +1,14 @@
 <template>
   <b-card align="center">
     <h2 class="card-heading" @click="goToDetails">{{title}}</h2>
-    <b-button
+    <!-- <b-button
       @click="toggleFavorite"
-    >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</b-button>
+    >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</b-button> -->
+    <b-icon
+      :icon="isFavorite ? 'star-fill' : 'star'"
+      class="favorite-icon"
+      @click="toggleFavorite"
+    />
   </b-card>
 </template>
 
@@ -35,5 +40,10 @@ export default {
 <style scoped>
 .card-heading {
   cursor: pointer;
+}
+.favorite-icon {
+  color: orange;
+  cursor: pointer;
+  font-size: 2em;
 }
 </style>
