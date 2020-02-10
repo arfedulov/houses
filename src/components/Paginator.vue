@@ -1,10 +1,12 @@
 <template>
-  <!-- <b-pagination :current-page="currentPage" @input="loadPage" /> -->
-  <div>
-    <button @click="loadPrevPage">prev</button>
-    <div>{{currentPage}}</div>
-    <button @click="loadNextPage">next</button>
-  </div>
+  <b-pagination
+    :current-page="currentPage"
+    :per-page="itemsPerPage"
+    :total-rows="totalItems"
+    align="center"
+    limit="3"
+    @input="loadPage"
+  />
 </template>
 
 <script>
@@ -16,6 +18,9 @@ export default {
   name: 'paginator',
   props: {
     currentPage: { type: Number, required: true },
+    items: { type: Number, required: true },
+    itemsPerPage: { type: Number, required: true },
+    totalItems: { type: Number, required: true },
   },
   methods: {
     loadMore() {

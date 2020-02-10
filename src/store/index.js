@@ -22,17 +22,17 @@ export default new Vuex.Store({
   state: {
     houses: [],
     currentPage: 1,
-    totalPages: 1,
+    totalItems: 0,
     favoriteHouses: [],
   },
   mutations: {
     loadHouses(state, houses) {
       state.houses = houses;
     },
-    loadPageData(state, { houses, currentPage, totalPages }) {
+    loadPageData(state, { houses, currentPage, totalItems }) {
       state.houses = houses;
       state.currentPage = currentPage;
-      state.totalPages = totalPages;
+      state.totalItems = totalItems;
     },
     clearHouses(state) {
       state.houses = [];
@@ -54,7 +54,7 @@ export default new Vuex.Store({
         context.commit('loadPageData', {
           houses: dedupeListings(pageData.houses),
           currentPage: pageData.page,
-          totalPages: pageData.totalPages,
+          totalItems: pageData.totalItems,
         });
       }
     },
