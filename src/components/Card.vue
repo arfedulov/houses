@@ -1,9 +1,9 @@
 <template>
   <b-card align="center">
     <h2 @click="goToDetails">{{title}}</h2>
-    <button
+    <b-button
       @click="toggleFavorite"
-    >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</button>
+    >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</b-button>
   </b-card>
 </template>
 

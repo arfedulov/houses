@@ -7,7 +7,10 @@ export default {
   },
   addFavorite: (house) => {
     const houses = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
-    localStorage.setItem(ITEM_KEY, JSON.stringify(Array.from(new Set([...houses, house]))));
+    localStorage.setItem(
+      ITEM_KEY,
+      JSON.stringify(Array.from(new Set([...houses, { ...house, isFavorite: true }]))),
+    );
   },
   removeFavorite: (title) => {
     const titles = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
