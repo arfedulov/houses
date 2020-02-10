@@ -1,13 +1,13 @@
-const ITEM_KEY = 'favorite-house-titles';
+const ITEM_KEY = 'favorite-houses';
 
 export default {
   getHouses: () => {
-    const titles = localStorage.getItem(ITEM_KEY);
-    return titles ? JSON.parse(titles) : [];
+    const houses = localStorage.getItem(ITEM_KEY);
+    return houses ? JSON.parse(houses) : [];
   },
-  addFavorite: (title) => {
-    const titles = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
-    localStorage.setItem(ITEM_KEY, JSON.stringify(Array.from(new Set([...titles, title]))));
+  addFavorite: (house) => {
+    const houses = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
+    localStorage.setItem(ITEM_KEY, JSON.stringify(Array.from(new Set([...houses, house]))));
   },
   removeFavorite: (title) => {
     const titles = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');

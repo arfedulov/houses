@@ -22,7 +22,7 @@ const dedupeListings = (listings) => {
 const addFavoriteProp = (houses) => {
   const favorite = FAVORITE_HOUSES.getHouses();
   return houses.reduce((acc, house) => {
-    const isFavorite = favorite.includes(house.title);
+    const isFavorite = favorite.map(h => h.title).includes(house.title);
     acc.push({ ...house, isFavorite });
     return acc;
   }, []);
@@ -53,13 +53,11 @@ const mapPropsFromApi = houses => houses.reduce((acc, house) => {
 export default new Vuex.Store({
   state: {
     houses: [],
+    favoriteHouses: FAVORITE_HOUSES.getHouses(),
     currentPage: 1,
     totalItems: 0,
   },
   mutations: {
-    // loadHouses(state, houses) {
-    //   state.houses = mapPropsFromApi(addFavoriteProp(houses));
-    // },
     loadPageData(state, { houses, currentPage, totalItems }) {
       state.houses = mapPropsFromApi(addFavoriteProp(houses));
       state.currentPage = currentPage;
@@ -68,16 +66,17 @@ export default new Vuex.Store({
     clearHouses(state) {
       state.houses = [];
     },
-    addFavoriteHouse(state, title) {
-      FAVORITE_HOUSES.addFavorite(title);
+    addFavoriteHouse(state, favoriteHouse) {
+      FAVORITE_HOUSES.addFavorite(favoriteHouse);
       state.houses = state.houses.reduce((acc, house) => {
         let h = house;
-        if (house.title === title) {
+        if (house.title === favoriteHouse.title) {
           h = { ...house, isFavorite: true };
         }
         acc.push(h);
         return acc;
       }, []);
+      state.favoriteHouses = [...state.favoriteHouses, { ...favoriteHouse, isFavorite: true }];
     },
     removeFromFavoriteHouse(state, title) {
       FAVORITE_HOUSES.removeFavorite(title);
@@ -89,6 +88,7 @@ export default new Vuex.Store({
         acc.push(h);
         return acc;
       }, []);
+      state.favoriteHouses = state.favoriteHouses.filter(house => house.title !== title);
     },
   },
   actions: {

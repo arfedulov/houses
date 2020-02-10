@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     ...mapState({
-      houses: state => state.houses.filter(house => house.isFavorite),
+      houses: state => state.favoriteHouses,
     }),
   },
   methods: {

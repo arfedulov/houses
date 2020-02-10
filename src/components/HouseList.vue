@@ -34,7 +34,8 @@ export default {
   },
   methods: {
     addHouseToFavorite(title) {
-      this.$emit(EVENTS.ADD_HOUSE_TO_FAVORITE, title);
+      const house = this.houses.find(h => h.title === title);
+      this.$emit(EVENTS.ADD_HOUSE_TO_FAVORITE, house);
     },
     removeHouseFromFavorite(title) {
       this.$emit(EVENTS.REMOVE_HOUSE_FROM_FAVORITE, title);
