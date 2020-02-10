@@ -1,9 +1,6 @@
 <template>
   <b-card align="center">
     <h2 class="card-heading" @click="goToDetails">{{title}}</h2>
-    <!-- <b-button
-      @click="toggleFavorite"
-    >{{isFavorite ? 'remove from favorite' : 'add to favorite'}}</b-button> -->
     <b-icon
       :icon="isFavorite ? 'star-fill' : 'star'"
       class="favorite-icon"
