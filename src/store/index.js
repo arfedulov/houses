@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 // import API from '@/services/api';
 import API from '@/services/mockApi';
+import FAVORITE_HOUSES from '@/services/favoriteHouses';
 
 Vue.use(Vuex);
 
@@ -18,16 +19,25 @@ const dedupeListings = (listings) => {
   return deduped;
 };
 
+const addFavoriteProp = (houses) => {
+  const favorite = FAVORITE_HOUSES.getHouses();
+  return houses.reduce((acc, house) => {
+    const isFavorite = favorite.includes(house.title);
+    acc.push({ ...house, isFavorite });
+    return acc;
+  }, []);
+};
+
 export default new Vuex.Store({
   state: {
     houses: [],
     currentPage: 1,
     totalItems: 0,
-    favoriteHouses: [],
+    // favoriteHouses: FAVORITE_HOUSES.getHouses(),
   },
   mutations: {
     loadHouses(state, houses) {
-      state.houses = houses;
+      state.houses = addFavoriteProp(houses);
     },
     loadPageData(state, { houses, currentPage, totalItems }) {
       state.houses = houses;
@@ -37,14 +47,27 @@ export default new Vuex.Store({
     clearHouses(state) {
       state.houses = [];
     },
-    addFavoriteHouse(state, house) {
-      if (!state.favoriteHouses.find(h => h.title === house.title)) {
-        state.favoriteHouses.push(house);
-      }
+    addFavoriteHouse(state, title) {
+      FAVORITE_HOUSES.addFavorite(title);
+      state.houses = state.houses.reduce((acc, house) => {
+        let h = house;
+        if (house.title === title) {
+          h = { ...house, isFavorite: true };
+        }
+        acc.push(h);
+        return acc;
+      }, []);
     },
     removeFromFavoriteHouse(state, title) {
-      this.state.favoriteHouses = this.state.favoriteHouses
-        .filter(house => house.title !== title);
+      FAVORITE_HOUSES.removeFavorite(title);
+      state.houses = state.houses.reduce((acc, house) => {
+        let h = house;
+        if (house.title === title) {
+          h = { ...house, isFavorite: false };
+        }
+        acc.push(h);
+        return acc;
+      }, []);
     },
   },
   actions: {

@@ -1,11 +1,13 @@
 <template>
   <house-list
     :houses="houses"
+    @house-list:add-house-to-favorite="addFavoriteHouse"
+    @house-list:remove-house-from-favorite="removeFromFavoriteHouse"
   />
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import HouseList from '@/components/HouseList.vue';
 
 export default {
@@ -15,8 +17,14 @@ export default {
   },
   computed: {
     ...mapState({
-      houses: state => state.favoriteHouses,
+      houses: state => state.houses.filter(house => house.isFavorite),
     }),
+  },
+  methods: {
+    ...mapMutations([
+      'addFavoriteHouse',
+      'removeFromFavoriteHouse',
+    ]),
   },
 };
 </script>

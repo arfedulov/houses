@@ -8,5 +8,3 @@ this functionality. Use Vuex to store those apartments.
 
 3. Add filters for result. By price (slider), bedrooms (2 inputs), has photo
 flag (switch). Add button search under filters to use it with current city.
-
-4. Add 'by page' pagination buttons and functionality instead of 'show more' button.

@@ -3,6 +3,8 @@
     <search class="search-field" @search:submit="search" />
     <house-list
       :houses="houses"
+      @house-list:add-house-to-favorite="addFavoriteHouse"
+      @house-list:remove-house-from-favorite="removeFromFavoriteHouse"
     />
     <paginator
       v-show="totalItems"
@@ -52,6 +54,8 @@ export default {
     ]),
     ...mapMutations([
       'clearHouses',
+      'addFavoriteHouse',
+      'removeFromFavoriteHouse',
     ]),
     async loadPage(page) {
       if (!this.city) {
