@@ -19,7 +19,7 @@ describe('API', () => {
 
     it('return promise with value `{ houses: <array>, page: <number> }`', async () => {
       const CITY = 'moscow';
-      const result = await API.getHouses(CITY);
+      const result = await API.getHousesPage(CITY);
 
       expect(Array.isArray(result.houses)).toBe(true);
       expect(typeof result.page).toBe('number');
@@ -46,7 +46,7 @@ describe('API', () => {
 
     it('grab `response.listings` list from response and return it as `houses` prop', async () => {
       const CITY = 'moscow';
-      const result = await API.getHouses(CITY);
+      const result = await API.getHousesPage(CITY);
 
       const EXPECT = { houses: HOUSES, page: 1 };
 
