@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 // import API from '@/services/api';
 import API from '@/services/mockApi';
 import FAVORITE_HOUSES from '@/services/favoriteHouses';
+import filterHouses from '@/utils/filterHouses';
 
 Vue.use(Vuex);
 
@@ -49,39 +50,6 @@ const mapPropsFromApi = houses => houses.reduce((acc, house) => {
   acc.push(h);
   return acc;
 }, []);
-
-// TODO: test function
-/** Return filtered arary of items. */
-const filterHouses = (items, filters) => {
-  let filtered = [...items];
-  const {
-    showAll,
-    priceFrom,
-    priceTo,
-    bedroomsFrom,
-    bedroomsTo,
-    hasImage,
-  } = filters;
-  if (showAll) {
-    return items;
-  }
-  if (Number.isFinite(priceFrom)) {
-    filtered = filtered.filter(item => item.price > priceFrom);
-  }
-  if (Number.isFinite(priceTo)) {
-    filtered = filtered.filter(item => item.price < priceTo);
-  }
-  if (Number.isFinite(bedroomsFrom)) {
-    filtered = filtered.filter(item => item.bedrooms > bedroomsFrom);
-  }
-  if (Number.isFinite(bedroomsTo)) {
-    filtered = filtered.filter(item => item.bedrooms < bedroomsTo);
-  }
-  if (hasImage) {
-    filtered = filtered.filter(item => item.imageUrl);
-  }
-  return filtered;
-};
 
 export default new Vuex.Store({
   state: {
