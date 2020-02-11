@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <house-filter></house-filter>
     <div>
       <card
@@ -53,5 +53,9 @@ export default {
 <style scoped>
 .card {
   margin: 5px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
