@@ -8,7 +8,7 @@
       @house-list:go-to-apartment="goToApartment"
     />
     <paginator
-      v-show="totalItems"
+      v-show="showPaginator"
       :current-page="currentPage"
       :items="itemsOnPage"
       :items-per-page="itemsOnPage"
@@ -48,6 +48,9 @@ export default {
     }),
     itemsOnPage() {
       return this.houses.length;
+    },
+    showPaginator() {
+      return this.totalItems > 0;
     },
   },
   mounted() {

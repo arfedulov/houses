@@ -13,7 +13,10 @@ export default {
         price_currency: 'USD',
       });
     }
-
-    return { houses, page, totalItems };
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ houses, page, totalItems });
+      }, 500);
+    });
   },
 };

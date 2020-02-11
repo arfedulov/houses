@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import API from '@/services/api';
-import API from '@/services/mockApi';
+import API from '@/services/api';
+// import API from '@/services/mockApi';
 import FAVORITE_HOUSES from '@/services/favoriteHouses';
 import filterHouses from '@/utils/filterHouses';
 

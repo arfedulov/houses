@@ -1,12 +1,9 @@
 <template>
-  <b-pagination
-    :current-page="currentPage"
-    :per-page="itemsPerPage"
-    :total-rows="totalItems"
-    align="center"
-    limit="3"
-    @input="loadPage"
-  />
+  <div class="paginator">
+    <b-button :disabled="!hasPrev" @click="loadPrevPage">prev page</b-button>
+    <span class="currentPage">{{currentPage}}</span>
+    <b-button :disabled="!hasNext" @click="loadNextPage">next page</b-button>
+  </div>
 </template>
 
 <script>
@@ -22,12 +19,23 @@ export default {
     itemsPerPage: { type: Number, required: true },
     totalItems: { type: Number, required: true },
   },
+  computed: {
+    hasPrev() {
+      return this.currentPage > 1;
+    },
+    hasNext() {
+      const loaded = this.currentPage * this.itemsPerPage;
+      return (this.totalItems - loaded) > 0;
+    },
+  },
   methods: {
     loadMore() {
       this.$emit(EVENTS.LOAD_MORE);
     },
     loadPage(page) {
-      this.$emit(EVENTS.LOAD_PAGE, page);
+      if (page && page !== this.currentPage) {
+        this.$emit(EVENTS.LOAD_PAGE, page);
+      }
     },
     loadNextPage() {
       this.loadPage(this.currentPage + 1);
@@ -40,8 +48,13 @@ export default {
 </script>
 
 <style scoped>
-.show-more-btn {
-  margin: 10px auto;
-  max-width: 10em;
+.paginator {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.currentPage {
+  margin: 0 10px;
 }
 </style>

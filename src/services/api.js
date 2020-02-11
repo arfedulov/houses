@@ -7,10 +7,11 @@ const defaultParams = {
   encoding: 'json',
   action: 'search_listings',
   listing_type: 'buy',
+  number_of_results: 20,
 };
 
 export default {
-  async getHouses(city, page = 1) {
+  async getHousesPage(city, page = 1) {
     if (!city) {
       throw new Error('Missing required argument `city`');
     }
@@ -23,7 +24,7 @@ export default {
       if (code >= 100 && code < 200) {
         return {
           houses: data.response.listings,
-          totalItems: data.response.total_items,
+          totalItems: data.response.total_results,
           page,
         };
       }
