@@ -18,7 +18,7 @@
 
 <script>
 import Card from './Card.vue';
-import Filter from './Filter.vue';
+import HouseFilter from './Filter.vue';
 
 export const EVENTS = {
   ADD_HOUSE_TO_FAVORITE: 'house-list:add-house-to-favorite',
@@ -30,7 +30,7 @@ export default {
   name: 'house-list',
   components: {
     Card,
-    'house-filter': Filter,
+    HouseFilter,
   },
   props: {
     houses: { type: Array, default: () => [] },
