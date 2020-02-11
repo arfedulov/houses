@@ -2,7 +2,7 @@
   <b-card align="center">
     <h2 class="card-heading" @click="goToDetails">{{title}}</h2>
     <b-icon
-      :icon="isFavorite ? 'star-fill' : 'star'"
+      :icon="favoriteIcon"
       class="favorite-icon"
       @click="toggleFavorite"
     />
@@ -21,6 +21,11 @@ export default {
   props: {
     title: { type: String, required: true },
     isFavorite: { type: Boolean, default: false },
+  },
+  computed: {
+    favoriteIcon() {
+      return this.isFavorite ? 'star-fill' : 'star';
+    },
   },
   methods: {
     toggleFavorite() {
