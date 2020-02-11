@@ -38,16 +38,17 @@ const API_PROPS_TO_APP_MAP = new Map(Object.entries({
   keywords: 'keywords',
 }));
 
+/** Convert prop names from the format api uses to app format. */
 const mapPropsFromApi = houses => houses.reduce((acc, house) => {
-  const h = {};
+  const renamed = {};
   Object.keys(house).forEach((key) => {
     if (API_PROPS_TO_APP_MAP.has(key)) {
-      h[API_PROPS_TO_APP_MAP.get(key)] = house[key];
+      renamed[API_PROPS_TO_APP_MAP.get(key)] = house[key];
     } else {
-      h[key] = house[key];
+      renamed[key] = house[key];
     }
   });
-  acc.push(h);
+  acc.push(renamed);
   return acc;
 }, []);
 
