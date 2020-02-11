@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'apartment-view',
@@ -25,9 +25,9 @@ export default {
     title: { type: String, required: true },
   },
   computed: {
-    ...mapState({
-      houses: state => state.houses,
-    }),
+    ...mapGetters([
+      'houses',
+    ]),
     apartment() {
       return this.houses.find(house => house.title === this.title);
     },

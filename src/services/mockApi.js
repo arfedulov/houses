@@ -9,7 +9,7 @@ export default {
         img_url: 'https://imgs.nestimg.com/2_bedroom_flat_for_sale_in_27_st_mark_street_e1_london_3040071581245397211.jpg',
         bedroom_number: 5,
         keywords: 'a b c d',
-        price: 12345,
+        price: 10,
         price_currency: 'USD',
       });
     }

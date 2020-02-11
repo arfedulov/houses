@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import {
+  mapActions, mapState, mapMutations, mapGetters,
+} from 'vuex';
 import HouseList from '@/components/HouseList.vue';
 import Search from '@/components/Search.vue';
 import Paginator from '@/components/Paginator.vue';
@@ -37,8 +39,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'houses',
+    ]),
     ...mapState({
-      houses: state => state.houses,
       currentPage: state => state.currentPage,
       totalItems: state => state.totalItems,
     }),

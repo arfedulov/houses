@@ -42,10 +42,10 @@ export default {
     filters() {
       return {
         showAll: this.showAll,
-        priceFrom: this.priceFrom,
-        priceTo: this.priceTo,
-        bedroomsFrom: this.bedroomsFrom,
-        bedroomsTo: this.bedroomsTo,
+        priceFrom: +this.priceFrom,
+        priceTo: +this.priceTo,
+        bedroomsFrom: +this.bedroomsFrom,
+        bedroomsTo: +this.bedroomsTo,
         hasImage: this.hasImage,
       };
     },

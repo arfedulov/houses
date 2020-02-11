@@ -53,26 +53,37 @@ const mapPropsFromApi = houses => houses.reduce((acc, house) => {
 
 export default new Vuex.Store({
   state: {
-    houses: [],
+    allHouses: [],
     favoriteHouses: FAVORITE_HOUSES.getHouses(),
     currentPage: 1,
     totalItems: 0,
+    filters: {
+      showAll: true,
+      priceFrom: 0,
+      priceTo: 0,
+      bedroomsFrom: 0,
+      bedroomsTo: 0,
+      hasImage: false,
+    },
+  },
+  getters: {
+    houses: state => filterHouses(state.allHouses, state.filters),
   },
   mutations: {
     filterHouses(state, filters) {
-      state.houses = filterHouses(state.houses, filters);
+      state.filters = filters;
     },
     loadPageData(state, { houses, currentPage, totalItems }) {
-      state.houses = mapPropsFromApi(addFavoriteProp(houses));
+      state.allHouses = mapPropsFromApi(addFavoriteProp(houses));
       state.currentPage = currentPage;
       state.totalItems = totalItems;
     },
     clearHouses(state) {
-      state.houses = [];
+      state.allHouses = [];
     },
     addFavoriteHouse(state, favoriteHouse) {
       FAVORITE_HOUSES.addFavorite(favoriteHouse);
-      state.houses = state.houses.reduce((acc, house) => {
+      state.allHouses = state.allHouses.reduce((acc, house) => {
         let h = house;
         if (house.title === favoriteHouse.title) {
           h = { ...house, isFavorite: true };
@@ -84,7 +95,7 @@ export default new Vuex.Store({
     },
     removeFromFavoriteHouse(state, title) {
       FAVORITE_HOUSES.removeFavorite(title);
-      state.houses = state.houses.reduce((acc, house) => {
+      state.allHouses = state.allHouses.reduce((acc, house) => {
         let h = house;
         if (house.title === title) {
           h = { ...house, isFavorite: false };
