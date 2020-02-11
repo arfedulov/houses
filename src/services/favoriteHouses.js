@@ -13,7 +13,7 @@ export default {
     );
   },
   removeFavorite: (title) => {
-    const titles = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
-    localStorage.setItem(ITEM_KEY, JSON.stringify(titles.filter(t => t !== title)));
+    const houses = JSON.parse(localStorage.getItem(ITEM_KEY) || '[]');
+    localStorage.setItem(ITEM_KEY, JSON.stringify(houses.filter(house => house.title !== title)));
   },
 };
