@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import API from '@/services/api';
-import FAVORITE_HOUSES from '@/services/favoriteHouses';
+import apiService from '@/services/api';
+import favoriteHousesService from '@/services/favoriteHouses';
 import filterHouses from '@/utils/filterHouses';
 import dedupeHouses from '@/utils/dedupeHouses';
 
 Vue.use(Vuex);
 
 const addFavoriteProp = (houses) => {
-  const favorite = FAVORITE_HOUSES.getHouses();
+  const favorite = favoriteHousesService.getHouses();
   return houses.reduce((acc, house) => {
     const isFavorite = favorite.map(h => h.title).includes(house.title);
     acc.push({ ...house, isFavorite });
@@ -42,7 +42,7 @@ const mapPropsFromApi = houses => houses.reduce((acc, house) => {
 export default new Vuex.Store({
   state: {
     allHouses: [],
-    favoriteHouses: FAVORITE_HOUSES.getHouses(),
+    favoriteHouses: favoriteHousesService.getHouses(),
     currentPage: 1,
     totalItems: 0,
     filters: {
@@ -70,7 +70,7 @@ export default new Vuex.Store({
       state.allHouses = [];
     },
     addFavoriteHouse(state, favoriteHouse) {
-      FAVORITE_HOUSES.addFavorite(favoriteHouse);
+      favoriteHousesService.addFavorite(favoriteHouse);
       state.allHouses = state.allHouses.reduce((acc, house) => {
         let h = house;
         if (house.title === favoriteHouse.title) {
@@ -82,7 +82,7 @@ export default new Vuex.Store({
       state.favoriteHouses = [...state.favoriteHouses, { ...favoriteHouse, isFavorite: true }];
     },
     removeFromFavoriteHouse(state, title) {
-      FAVORITE_HOUSES.removeFavorite(title);
+      favoriteHousesService.removeFavorite(title);
       state.allHouses = state.allHouses.reduce((acc, house) => {
         let h = house;
         if (house.title === title) {
@@ -96,7 +96,7 @@ export default new Vuex.Store({
   },
   actions: {
     async loadHouses(context, { city, page }) {
-      const pageData = await API.getHousesPage(city, page);
+      const pageData = await apiService.getHousesPage(city, page);
       if (pageData) {
         context.commit('loadPageData', {
           houses: dedupeHouses(pageData.houses),
