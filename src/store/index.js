@@ -3,21 +3,9 @@ import Vuex from 'vuex';
 import API from '@/services/api';
 import FAVORITE_HOUSES from '@/services/favoriteHouses';
 import filterHouses from '@/utils/filterHouses';
+import dedupeHouses from '@/utils/dedupeHouses';
 
 Vue.use(Vuex);
-
-const dedupeListings = (listings) => {
-  const usedTitles = new Set();
-  const deduped = [];
-
-  listings.forEach((house) => {
-    if (!usedTitles.has(house.title)) {
-      deduped.push(house);
-      usedTitles.add(house.title);
-    }
-  });
-  return deduped;
-};
 
 const addFavoriteProp = (houses) => {
   const favorite = FAVORITE_HOUSES.getHouses();
@@ -111,7 +99,7 @@ export default new Vuex.Store({
       const pageData = await API.getHousesPage(city, page);
       if (pageData) {
         context.commit('loadPageData', {
-          houses: dedupeListings(pageData.houses),
+          houses: dedupeHouses(pageData.houses),
           currentPage: pageData.page,
           totalItems: pageData.totalItems,
         });
