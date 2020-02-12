@@ -20,31 +20,26 @@ export default {
         NESTORIA_URL + buildQuery({ ...defaultParams, place_name: city, page }),
       );
       const data = await response.json();
-      const code = data && data.response.application_response_code;
+      const {
+        application_response_code: code,
+        listings: houses,
+        total_results: totalItems,
+      } = data.response;
       if (code >= 100 && code < 200) {
-        return {
-          houses: data.response.listings,
-          totalItems: data.response.total_results,
-          page,
-        };
+        return { houses, totalItems, page };
       }
       if (code >= 900 && code < 1000) {
         log.error(`Bad request: ${code}`);
       } else {
         log.error(`Server respond with ${code} application responce code`);
       }
-      return {
-        houses: [],
-        totalItems: 0,
-        page,
-      };
     } catch (err) {
       log.error(err);
-      return {
-        houses: [],
-        totalItems: 0,
-        page,
-      };
     }
+    return {
+      houses: [],
+      totalItems: 0,
+      page,
+    };
   },
 };
