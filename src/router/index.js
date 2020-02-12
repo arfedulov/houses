@@ -1,8 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/views/Home.vue';
-import Favorite from '@/views/Favorite.vue';
-import Apartment from '@/views/Apartment.vue';
 
 Vue.use(VueRouter);
 
@@ -10,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/favorite',
     name: 'favorite',
-    component: Favorite,
+    component: () => import('@/views/Favorite.vue'),
   },
   {
     path: '/apartment/:title',
     name: 'apartment',
-    component: Apartment,
+    component: () => import('@/views/Apartment.vue'),
     props: true,
   },
 ];
