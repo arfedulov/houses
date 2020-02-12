@@ -95,10 +95,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async loadHouses(context, { city, page }) {
+    async loadHouses({ commit }, { city, page }) {
       const pageData = await apiService.getHousesPage(city, page);
       if (pageData) {
-        context.commit('loadPageData', {
+        commit('loadPageData', {
           houses: dedupeHouses(pageData.houses),
           currentPage: pageData.page,
           totalItems: pageData.totalItems,
